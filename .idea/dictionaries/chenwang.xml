@@ -3,6 +3,9 @@
     <words>
       <w>chenwang</w>
       <w>enframed</w>
+      <w>librosa</w>
+      <w>resample</w>
+      <w>scipy</w>
     </words>
   </dictionary>
 </component>

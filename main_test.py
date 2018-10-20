@@ -1,13 +1,22 @@
 from classfication import thresholdFun as thd
 from wavfeature import wavfeature as wf
 import matplotlib.pyplot as plt
+import numpy as np
 import until
 
 
 wave = wf.Feature("E:\VsProject\speech\speech\D4_754.wav")
 en = wave.st_en()
 zcr = wave.st_zcr()
-index_frame = thd.threshold(en, 1.2, 1.6)
+feature = {'en': en, 'zcr': zcr}
+index_frame = thd.threshold(feature)
+test = dict()
+test['y'] = np.ones(len(index_frame['y']))
+print('%.2f' % until.calculate_accuracy(index_frame, test))
+plt.plot(index_frame['y'])
+plt.ylim(0,)
+plt.xlim(min(index_frame['x']),)
+plt.show()
 
 #################################################
 # Display #

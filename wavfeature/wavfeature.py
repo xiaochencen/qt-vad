@@ -29,29 +29,16 @@ class Feature(object):
     def st_zcr(self):
         # short time zero cross rate
         short_time_zcr = dict()
-        short_time_zcr["y"] = np.zeros(self.framed_data["frame_num"])
-        en_framed, frame_num = self.framed_data["data"], self.framed_data["frame_num"]
-        for frame in range(frame_num):
-            count = 0
-            for i in range(en_framed.shape[1] - 1):
-                if en_framed[frame, i] * en_framed[frame, i + 1] < 0:
-                    count += 1
-            short_time_zcr["y"][frame] = count
+        short_time_zcr["y"] = []
+        en_framed = self.framed_data["data"]
+        # 一般使用列表解析来加快计算速度
+        short_time_zcr["y"] = [sum(librosa.zero_crossings(x)) for x in en_framed]
         short_time_zcr["x"] = self.frame_time
         return short_time_zcr
 
-    def pre_emphasis(self, win):
-        """
-        pre-emphasis the voice to raise the high frequency
-        :param win:
-        :return: pre-emphasised voice data
-        """
-
-        pass
-
 
 if __name__ == "__main__":
-    wave = Feature("E:\PycharmPro\chenwang.wav")
+    wave = Feature("E:\PycharmPro\D4_754.wav")
     en = wave.st_en()
     zcr = wave.st_zcr()
     input("")
